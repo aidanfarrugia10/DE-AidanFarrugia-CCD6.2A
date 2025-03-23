@@ -55,4 +55,14 @@ async def get_sprites():
         })
     return sprites
 
+@app.get("/audio")
+async def get_audio():
+    audioDb = db.audio.find()
+    audio = []
+    async for audioFile in audioDb:
+        audio.append({
+            "filename": audioFile.get("filename")
+        })
+    return audio
+
 

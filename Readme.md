@@ -8,7 +8,7 @@ main.py
 Readme.md
 requirements.txt
 
-## ⚙️ Environment Setup Instructions
+## Environment Setup Instructions
 
 1. Create Virtual Environment
 
@@ -21,3 +21,7 @@ requirements.txt
 
    pip freeze > requirements.txt
    ```
+
+## Setup of mongoDb Schema and populating of Documents
+
+2. Used Gen Ai to generate 2 mock data for each collection sprites, audio, scores

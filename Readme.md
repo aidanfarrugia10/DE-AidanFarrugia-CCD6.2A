@@ -25,3 +25,7 @@ requirements.txt
 ## Setup of mongoDb Schema and populating of Documents
 
 2. Used Gen Ai to generate 2 mock data for each collection sprites, audio, scores
+
+   ```bash
+   manualy inputed the mock data one by one for the 3 collections
+   ```

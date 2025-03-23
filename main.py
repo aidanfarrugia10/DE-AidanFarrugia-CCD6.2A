@@ -45,14 +45,14 @@ async def get_player_scores():
         })
     return scores
 
-@app.get("sprite")
-async def get_player_scores():
-    spriteDB = db.sprite.find()
-    sprite = []
-    async for score in spriteDB:
-        sprite.append({
-            "player_name": score.get("player_name"),
-            "score": score.get("score")
+@app.get("/sprites")
+async def get_sprites():
+    spriteDb = db.sprites.find()
+    sprites = []
+    async for sprite in spriteDb:
+        sprites.append({
+            "filename": sprite.get("filename")
         })
-    return sprite
+    return sprites
+
 

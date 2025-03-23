@@ -17,8 +17,7 @@ class PlayerScore(BaseModel):
 
 #POST /upload_sprite, Uploads a sprite image file to sprites colection in Mongo. accepts it as form-data and converts 
 #to binary content then returns the id of the document
-#Accepts the file via form-data and stores it as binary content
-# Returns the ID of the inserted document
+#Accepts the file via form-data and stores it as binary content and returns the id of the inserted document
 @app.post("/upload_sprite")
 async def upload_sprite(file: UploadFile = File(...)):
     # In a real application, the file should be saved to a storage service
@@ -29,7 +28,7 @@ async def upload_sprite(file: UploadFile = File(...)):
 
 #POST /upload_audio, Uploads an audio file to the audio collection, accepts the file via
 #formdata and stores it as binary content
-#Returns the Id of the inserted document
+#returns the Id of the inserted document
 @app.post("/upload_audio")
 async def upload_audio(file: UploadFile = File(...)):
     content = await file.read()
@@ -40,9 +39,19 @@ async def upload_audio(file: UploadFile = File(...)):
 
 @app.post("/player_score")
 async def add_score(score: PlayerScore):
+    #Reject anything that's not a proper string or int to avoid injection
+    if not isinstance(score.player_name, str) or not isinstance(score.score, int):
+        raise HTTPException(status_code=400, detail="Invalid input types")
+
+    #prevent injection by disallowing special characters
+    blocked_chars = ['$', '{', '}', ';']
+    if any(char in score.player_name for char in blocked_chars):
+        raise HTTPException(status_code=400, detail="Invalid characters in player name")
+
     score_doc = score.dict()
     result = await db.scores.insert_one(score_doc)
     return {"message": "Score recorded", "id": str(result.inserted_id)}
+
 
 #Gets Player score and displays all the data. names and their scores
 @app.get("/player_scores")

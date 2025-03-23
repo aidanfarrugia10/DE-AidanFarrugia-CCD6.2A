@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from pydantic import BaseModel
 import motor.motor_asyncio
+from typing import List
 
 app = FastAPI()
 
@@ -32,3 +33,15 @@ async def add_score(score: PlayerScore):
     score_doc = score.dict()
     result = await db.scores.insert_one(score_doc)
     return {"message": "Score recorded", "id": str(result.inserted_id)}
+
+@app.get("/player_scores")
+async def get_player_scores():
+    scores_Db = db.scores.find()
+    scores = []
+    async for score in scoresasync:
+        scores.append({
+            "player_name": score.get("playername"),
+            "score": score.get("score")
+        })
+
+

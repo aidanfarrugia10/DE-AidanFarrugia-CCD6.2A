@@ -29,3 +29,14 @@ requirements.txt
    ```bash
    manualy inputed the mock data one by one for the 3 collections
    ```
+
+## Configurating code in appendix to connect with my database and testing the code itself.
+
+3. running the api server
+
+   ```bash
+   uvicorn main:app --reload
+
+   opening browser tab to test
+   http://127.0.0.1:8000/docs#/
+   ```

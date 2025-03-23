@@ -40,3 +40,11 @@ requirements.txt
    opening browser tab to test
    http://127.0.0.1:8000/docs#/
    ```
+
+## Adjusting of code and adding POST requests for each collection
+
+    ```bash
+    POST Function for the following:
+    /player_scores - To post PlayerName and Score
+    /sprites - To post Filename
+    /audio - To post Filename

@@ -36,12 +36,12 @@ async def add_score(score: PlayerScore):
 
 @app.get("/player_scores")
 async def get_player_scores():
-    scores_Db = db.scores.find()
+    scores_cursor = db.scores.find()
     scores = []
-    async for score in scoresasync:
+    async for score in scores_cursor:
         scores.append({
-            "player_name": score.get("playername"),
+            "player_name": score.get("player_name"),
             "score": score.get("score")
         })
-
+    return scores
 
